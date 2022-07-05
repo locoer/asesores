@@ -1,6 +1,7 @@
 // pages/_app.js
 import '../styles/global.css';
-import Head from 'next/head'
+import "reflect-metadata";
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }) {
   return (
