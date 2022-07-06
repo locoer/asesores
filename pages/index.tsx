@@ -10,7 +10,7 @@ export async function getServerSideProps(context) {
     .catch((error) => console.log(error))
   */
   return {
-    props: {msj: "hola"}, // will be passed to the page component as props
+    props: {msj: "hola, yeeey"}, // will be passed to the page component as props
   }
 }
 
@@ -29,7 +29,7 @@ export default function Home(props) {
           </Link>
         </h1>
         <div className="my-5">
-          <p className="text-xl">Prueba con la BDs</p>
+          <p className="text-xl">Prueba con la BDs y {props.msj}</p>
         </div>
       </main>
       <footer>
