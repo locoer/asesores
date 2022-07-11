@@ -3,12 +3,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 export async function getServerSideProps(context) {
-  /*AppDataSource.initialize()
+  AppDataSource.initialize()
     .then(() => {
         // here you can start to work with your database
+        console.log("se inicializó bien la BDs")
     })
     .catch((error) => console.log(error))
-  */
+  
   return {
     props: {msj: "hola, yeeey"}, // will be passed to the page component as props
   }
