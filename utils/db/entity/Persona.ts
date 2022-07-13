@@ -1,7 +1,7 @@
 
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
 
-@Entity()
+@Entity({ name: 'personas' })
 export class Persona {
   @PrimaryGeneratedColumn()
   id: number
@@ -19,4 +19,13 @@ export class Persona {
     length: 13,
   })
   rfc: string
+
+  @CreateDateColumn()
+  createdAt: Date
+
+  @UpdateDateColumn()
+  updatedAt: Date
+
+  @DeleteDateColumn()
+  deletedAt: Date
 }
