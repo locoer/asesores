@@ -3,12 +3,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 export async function getServerSideProps(context) {
+  /*
   AppDataSource.initialize()
     .then(() => {
         // here you can start to work with your database
     })
     .catch((error) => console.log(error))
-  
+  */
   return {
     props: {msj: "hola, yeeey"}, // will be passed to the page component as props
   }
@@ -23,13 +24,19 @@ export default function Home(props) {
       </Head>
       <main>
         <h1 className="title">
-          Mira{' '}
-          <Link href="/posts/primer-post">
-            <a>this page!</a>
-          </Link>
+          Bienvenido a la app Asesores
         </h1>
         <div className="my-5">
-          <p className="text-xl">Prueba con la BDs y {props.msj}</p>
+          <p className="text-xl">Prueba con la BDs y {props.msj}<br/>
+            <Link href="/login">
+              <a>Iniciar Sesión</a>
+            </Link>
+          </p>
+          <p>
+            <Link href="/posts/primer-post">
+              <a>Registrarse</a>
+            </Link>
+          </p>
         </div>
       </main>
       <footer>
@@ -38,8 +45,7 @@ export default function Home(props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="MucMik" className="logo" />
+          Powered by{' '}MucMik
         </a>
       </footer>
 
