@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useState } from "react";
 import Link from 'next/link';
+import Input from '../components/Input';
 
 const Login = () => {
 
@@ -11,8 +12,8 @@ const Login = () => {
       <h1>Ingresa a la App aquí</h1>
       <form>
         <label htmlFor="user">Usuario</label>
-        <input type="text" name="user" aria-label="user" value={user} onChange={ (e) => { setUser( e.currentTarget.value ) } } />
-        <input type="password" name="password" aria-label="password" value={psswd} onChange={ (e) => { setPsswd( e.currentTarget.value ) } } />
+        <Input type="text" name="user" value={user} handleChange={ (e) => { setUser( e.currentTarget.value ) } } autoComplete="on" required={true} isFocused={true} />
+        <Input type="password" name="password" value={psswd} handleChange={ (e) => { setPsswd( e.currentTarget.value ) } } autoComplete="off" required={true} isFocused={false}  />
         <button type="submit" >Login</button>
       </form>
       <p>
