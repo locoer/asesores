@@ -3,13 +3,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 export async function getServerSideProps(context) {
-  /*
+  
   AppDataSource.initialize()
     .then(() => {
         // here you can start to work with your database
     })
     .catch((error) => console.log(error))
-  */
+  
   return {
     props: {msj: "hola, yeeey"}, // will be passed to the page component as props
   }
@@ -33,7 +33,7 @@ export default function Home(props) {
             </Link>
           </p>
           <p>
-            <Link href="/posts/primer-post">
+            <Link href="/usr/register">
               <a>Registrarse</a>
             </Link>
           </p>

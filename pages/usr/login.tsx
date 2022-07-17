@@ -41,7 +41,7 @@ const Login = () => {
         </Button>
       </form>
       <p>
-        <Link href="/register">
+        <Link href="/usr/register">
           <a>Regístrate Aquí</a>
         </Link>
       </p>
