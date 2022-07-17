@@ -28,7 +28,7 @@ export default function Home(props) {
         </h1>
         <div className="my-5">
           <p className="text-xl">Prueba con la BDs y {props.msj}<br/>
-            <Link href="/login">
+            <Link href="/usr/login">
               <a>Iniciar Sesión</a>
             </Link>
           </p>

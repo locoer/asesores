@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import Login from '../pages/login'
+import Login from '../pages/usr/login'
 import '@testing-library/jest-dom'
-import { isTypedArray } from 'util/types'
 
 describe( 'Visitor arrives at Login page', () => {
   it('renders a heading', () => {
@@ -21,12 +20,13 @@ describe( 'Visitor arrives at Login page', () => {
     })
     const input_psswd = screen.getByLabelText( /password/i )
     
-    const bttn_login = screen.getByRole('button', {
+    const btn_login = screen.getByRole('button', {
       name: /login/i,
     })
 
     expect(input_user).toBeInTheDocument()
     expect(input_psswd).toBeInTheDocument()
+    expect(btn_login).toBeInTheDocument()
   })
   it('has link to register a new user', () => {
     render(<Login />)
