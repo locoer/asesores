@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import Register from '../pages/usr/register'
 import '@testing-library/jest-dom'
+import userEvent from '@testing-library/user-event'
 
 describe( 'Visitor creates a new user in register page', () => {
   
@@ -44,34 +45,27 @@ describe( 'Visitor creates a new user in register page', () => {
     expect(btn_register).toBeInTheDocument()
   })
 
-  it('Creates a new user', () => {
+  it('Allows new user to type its data', async () => {
+    const user = userEvent.setup()
     render(<Register />)
+
+    const email = screen.getByRole('textbox', { name: /email/i })
     const usr = screen.getByRole('textbox', { name: /user/i })
     const pswd = screen.getByLabelText(/password/i)
-    const email = screen.getByRole('textbox', { name: /email/i })
     const tyc = screen.getByRole('checkbox', { name: /términos y condiciones/i })
+    const btn = screen.getByRole('button', { name: /crear usuario/i })
     
-    fireEvent.change(
-      usr, {target: {value: 'usr_prueba'}}
-    )
-    fireEvent.change(
-      pswd , {target: {value: 'psswd_prueba'}}
-    )
-    fireEvent.change(
-      email , {target: {value: 'email@prueba.com'}}
-    )
-    fireEvent.change(
-      tyc , {target: {checked: true}}
-    )
-    fireEvent(
-      screen.getByRole('button', { name: /crear usuario/i }),
-      new MouseEvent('click', {
-        user: usr.value,
-        psswd: pswd.value,
-        email: email.value,
-        terms: tyc.checked
-      }),
-    )
+    await user.type(email, 'prueba@asesores.com')
+    await user.type(usr, 'prueba_usr')
+    await user.type(pswd, 'prueba_pswd')
+    await user.click(tyc)
+    //await user.click(btn)
+
+    expect(email.value).toBe('prueba@asesores.com')
+    expect(usr.value).toBe('prueba_usr')
+    expect(pswd.value).toBe('prueba_pswd')
+    expect(tyc.value).toBe('true')
+
   })
 
   it('Redirects to Dashboard with new user logged in', () => {
