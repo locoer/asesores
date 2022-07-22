@@ -21,14 +21,14 @@ passport.deserializeUser(function(user, cb : Function) {
 passport.use(
   new LocalStrategy(
     { passReqToCallback: true },
-    (req : any, username : string, password : string , cb : Function ) => {
+    (req : NextApiRequest, username : string, password : string , cb : Function ) => {
       // Here you lookup the user in your DB and compare the password/hashed password
-      const user = username
-      console.log(req)
+      const user = {username, msg: "el Eri =)"}
+      //console.log(req)
       // Security-wise, if you hashed the password earlier, you must verify it
       // if (!user || await argon2.verify(user.password, password))
-      if ( user !== "erick" ||  password !== "eri" ) {
-        cb(null, null)
+      if ( username !== "erick" ||  password !== "eri" ) {
+        cb(null, false, { message: 'Usuario o password incorrectos.' })
       } else {
         cb(null, user)
       }

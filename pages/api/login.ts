@@ -4,15 +4,13 @@ import auth from '../../middleware/auth'
 import passport from '../../utils/passport'
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
-//.use(auth)
-/*passport.authenticate('local', {
-  successRedirect: '/tablero',
-  failureRedirect: '/usr/login'
-}),*/
+
 router
+  .use(auth)
   .post(
-    (req, res) => {
-      res.json({ user: req.body })
+    passport.authenticate('local'),
+    (req : any , res) => {
+      res.json( req.user )
     }
   )
 

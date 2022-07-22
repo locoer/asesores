@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createRouter } from "next-connect";
 import passport from "../utils/passport";
-import session from '../utils/session'
+import session from '../utils/session';
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
-router
+const auth = router
   .use(
     session({
       name: 'asesores',
@@ -21,7 +21,5 @@ router
   )
   .use(passport.initialize())
   .use(passport.session())
-
-const auth = router.handler()
 
 export default auth
