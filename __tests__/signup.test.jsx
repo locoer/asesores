@@ -3,25 +3,25 @@ import {setupServer} from 'msw/node'
 import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
-import Register from '../pages/usr/register'
+import Signup from '../pages/usr/signup'
 
-describe( 'Visitor creates a new user in register page', () => {
-  
-  const server = setupServer(
-    rest.post('/api/user', (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json({ success: true, message: 'created new user' }))
-      /*res.status = 301
-      res.headers.set('Location', '/tablero')
-      return res()*/
-    }),
-  )
-  
-  beforeAll(() => server.listen())
-  afterEach(() => server.resetHandlers())
-  afterAll(() => server.close())
+const server = setupServer(
+  rest.post('api/user', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ success: true, message: 'created new user' }))
+    /*res.status = 301
+    res.headers.set('Location', '/tablero')
+    return res()*/
+  }),
+)
+
+beforeAll(() => {server.listen()})
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
+
+describe( 'Visitor creates a new user in Signup page', () => {
 
   it('Renders a Heading and instructions', () => {
-    render(<Register />)
+    render(<Signup />)
 
     const heading = screen.getByRole('heading', {
       name: /regístrate aquí/i,
@@ -33,7 +33,7 @@ describe( 'Visitor creates a new user in register page', () => {
   })
   
   it('Renders a new user registry form', () => {
-    render(<Register />)
+    render(<Signup />)
 
     const input_user = screen.getByRole('textbox', {
       name: /user/i,
@@ -49,7 +49,7 @@ describe( 'Visitor creates a new user in register page', () => {
       name: /términos y condiciones/i,
     })
 
-    const btn_register = screen.getByRole('button', {
+    const btn_Signup = screen.getByRole('button', {
       name: /crear usuario/i,
     })
     
@@ -57,12 +57,12 @@ describe( 'Visitor creates a new user in register page', () => {
     expect(input_psswd).toBeInTheDocument()
     expect(input_email).toBeInTheDocument()
     expect(input_tyc).toBeInTheDocument()
-    expect(btn_register).toBeInTheDocument()
+    expect(btn_Signup).toBeInTheDocument()
   })
 
   it('Allows new user to type its data', async () => {
     const user = userEvent.setup()
-    render(<Register />)
+    render(<Signup />)
 
     const email = screen.getByRole('textbox', { name: /email/i })
     const usr = screen.getByRole('textbox', { name: /user/i })
@@ -81,9 +81,10 @@ describe( 'Visitor creates a new user in register page', () => {
 
   })
 
-  it('Registers user and Redirects to Dashboard with user data', async () => {
+  it('Signups user and Redirects to Dashboard with user data', async () => {
+    server.listen()
     const user = userEvent.setup()
-    render(<Register />)
+    render(<Signup />)
 
     const email = screen.getByRole('textbox', { name: /email/i })
     const usr = screen.getByRole('textbox', { name: /user/i })

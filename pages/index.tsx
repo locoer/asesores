@@ -33,7 +33,7 @@ export default function Home(props) {
             </Link>
           </p>
           <p>
-            <Link href="/usr/register">
+            <Link href="/usr/signup">
               <a>Registrarse</a>
             </Link>
           </p>

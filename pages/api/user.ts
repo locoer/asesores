@@ -1,9 +1,15 @@
-import { userAgent } from "next/server"
+export interface User {
+  username : string;
+  password : string;
+  email? : string;
+  termsConditions? : boolean;
+}
 
 export default async function signup(req, res) {
-  console.log("el body:", req.body)
-  const {user, psswd, email, termsConditions} = req.body
-  if ( user && psswd && email && termsConditions ) {
+
+  const {username, password, email, termsConditions} : User = req.body
+  
+  if ( username && password && email && termsConditions ) {
     res.status(200).send({ done: true })
   } else {
     res.status(500).end("Error en los campos")

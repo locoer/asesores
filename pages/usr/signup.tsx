@@ -1,29 +1,31 @@
 import { useState } from 'react'
 import Router from 'next/router'
+import {User as UserType} from '../api/user'
 import { Container, Center } from '@mantine/core';
 import { TextInput, PasswordInput, Checkbox, Button } from '@mantine/core';
 import { User, Mail } from 'tabler-icons-react';
 import { useForm } from '@mantine/form';
 
-const Register = () => {
+const Signup = () => {
   //useUser({ redirectTo: '/tablero', redirectIfFound: true }) //Por hacer hook, revisa si hay un usuario logeado y lo redirecciona al tablero
   
   const [errorMsg, setErrorMsg] = useState('')
 
   const form = useForm({
     initialValues: {
-      user: '',
-      psswd: '',
+      username: '',
+      password: '',
       email: '',
       termsConditions : false
     },
     validate: {
-      user: (value) => (/^[a-z\d_\-\.]+$/.test(value) ? null : 'Usuario inválido'),
+      username: (value) => (/^[a-z\d_\-\.]+$/.test(value) ? null : 'Usuario inválido, sólo se aceptan letras, números, ".", "-" y "_"'),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Dirección email inválida'),
     },
   });
 
-  const submitForm = async (values: { user: string; psswd: string; email: string; termsConditions: boolean }  ) => {
+  const submitForm = async (values : UserType  ) => {
+    console.log({values})
     try {
       const res = await fetch('/api/user', {
         method: 'POST',
@@ -62,18 +64,18 @@ const Register = () => {
               <TextInput
                 placeholder="usuario"
                 label="Ingresa tu Usuario"
-                name="user"
+                name="username"
                 aria-label="user"
                 required
                 icon={<User size={14} />}
-                {...form.getInputProps('user')}
+                {...form.getInputProps('username')}
               />
               <PasswordInput
                 placeholder="Password"
                 label="Password"
                 description="El password debe de incluir al menos 1 número y un caracter especial"
                 required
-                {...form.getInputProps('psswd')}
+                {...form.getInputProps('password')}
               />
               <Checkbox
                 label="Estoy de acuerdo con los Términos y Condiciones"
@@ -92,4 +94,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Signup
