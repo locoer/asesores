@@ -6,6 +6,11 @@ export async function getServerSideProps(context) {
   AppDataSource.initialize()
     .then(() => {
         // here you can start to work with your database
+        
+    })
+    .then( () => {
+      //cierra la conexión a la BDs
+      AppDataSource.destroy()
     })
     .catch((error) => console.log(error))
   
