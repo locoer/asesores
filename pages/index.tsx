@@ -1,4 +1,5 @@
 import {AppDataSource} from '../utils/db/data-source';
+import { signIn, signOut, useSession } from "next-auth/react"
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -6,6 +7,11 @@ export async function getServerSideProps(context) {
   AppDataSource.initialize()
     .then(() => {
         // here you can start to work with your database
+        
+    })
+    .then( () => {
+      //cierra la conexión a la BDs
+      AppDataSource.destroy()
     })
     .catch((error) => console.log(error))
   
@@ -15,6 +21,9 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home(props) {
+
+  const { data: session, status } = useSession()
+
   return (
     <div className="container">
       <Head>
@@ -30,6 +39,51 @@ export default function Home(props) {
         </h1>
         <div className="my-5">
           <p className="text-xl">Prueba con la BDs y {props.msj}</p>
+        </div>
+        <div>
+          <p>Prueba Next auth</p>
+          <p>
+          {!session && (
+            <>
+              <span>
+                You are not signed in
+              </span>
+              <a
+                href={`/api/auth/signin`}
+                className="block"
+                onClick={(e) => {
+                  e.preventDefault()
+                  signIn()
+                }}
+              >
+                Sign in
+              </a>
+            </>
+          )}
+          {session?.user && (
+            <>
+              {session.user.image && (
+                
+                <img src={session.user.image} referrerPolicy="no-referrer"/>
+              )}
+              <span>
+                <small>Signed in as</small>
+                <br />
+                <strong>{session.user.email ?? session.user.name}</strong>
+              </span>
+              <a
+                href={`/api/auth/signout`}
+                className="block"
+                onClick={(e) => {
+                  e.preventDefault()
+                  signOut()
+                }}
+              >
+                Sign out
+              </a>
+            </>
+          )}
+          </p>
         </div>
       </main>
       <footer>

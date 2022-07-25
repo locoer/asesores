@@ -1,7 +1,8 @@
-import { DataSource } from "typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
 import {Persona} from "./entity/Persona"
+import {UserEntity, AccountEntity, SessionEntity, VerificationTokenEntity } from './entity/Users'
 
-export const AppDataSource = new DataSource({
+export const ConnectionObject : DataSourceOptions = {
   type: "postgres",
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT) ,
@@ -10,7 +11,9 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: true,
-  entities: [Persona],
+  entities: [Persona, UserEntity, AccountEntity, SessionEntity, VerificationTokenEntity ],
   subscribers: [],
   migrations: [],
-})
+}
+
+export const AppDataSource = new DataSource( ConnectionObject )
