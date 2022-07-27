@@ -61,7 +61,7 @@ export default function Home(props) {
             </>
           )}
           {session?.user && (
-            <>
+            <div id="user_info">
               {session.user.image && (
                 
                 <img src={session.user.image} referrerPolicy="no-referrer"/>
@@ -69,6 +69,7 @@ export default function Home(props) {
               <span>
                 <small>Signed in as</small>
                 <br />
+                <b>{session.user.name}</b>
                 <strong>{session.user.email ?? session.user.name}</strong>
               </span>
               <a
@@ -81,7 +82,7 @@ export default function Home(props) {
               >
                 Sign out
               </a>
-            </>
+            </div>
           )}
           </p>
         </div>
